@@ -14,6 +14,39 @@
 ]
 'firstLineMatch': '^#!/.*\\bpython\\b'
 'patterns': [
+# begin personal extensions
+    {
+        'begin': '^\\s*(?=[uU]?[rR]?""")'
+        'end': '(?<=""")'
+        'patterns': [
+            {
+                'match': '"""((?:.(?!"""))*.(?="""|\\Z))'
+                'captures':
+                    '1':
+                        'name': 'summary.docstring.python'
+            }
+            {
+                'match': 'Args:'
+                'name': 'args.docstring.python'
+            }
+            {
+                'match': '(?:Return:|Returns:)'
+                'name': 'return.docstring.python'
+            }
+            {
+                'include': '#string_quoted_double'
+            }
+        ]
+        'name': 'docstring.python'
+    }
+    {
+        'match': '(\\s+)\\Z'
+        'captures':
+            '1':
+                'name': 'trailing.whitespace.python'
+    }
+# end personal extensions
+
   {
     'begin': '(^[ \\t]+)?(?=#)'
     'beginCaptures':
