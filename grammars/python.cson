@@ -16,25 +16,19 @@
 'patterns': [
 # begin personal extensions
     {
-        'begin': '^\\s*(?=[uU]?[rR]?""")'
+        'begin': '^\\s*(?=[uU]?[rR]?""")(.(?:.(?!"""))+.(?="""|\\Z))'
         'end': '(?<=""")'
+        'captures':
+            '1':
+                'name': 'summary.docstring.python'
         'patterns': [
             {
-                'match': '"""((?:.(?!"""))*.(?="""|\\Z))'
-                'captures':
-                    '1':
-                        'name': 'summary.docstring.python'
-            }
-            {
-                'match': 'Args:'
+                'match': '(?:Args:|Arguments:)'
                 'name': 'args.docstring.python'
             }
             {
                 'match': '(?:Return:|Returns:)'
                 'name': 'return.docstring.python'
-            }
-            {
-                'include': '#string_quoted_double'
             }
         ]
         'name': 'docstring.python'
